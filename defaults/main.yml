@@ -54,7 +54,6 @@ sysadmin_centos_pkgs:
 - bind-utils
 - iftop
 - iotop
-- lynx
 - strace
 - tcpdump
 
