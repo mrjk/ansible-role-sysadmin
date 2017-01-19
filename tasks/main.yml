@@ -21,13 +21,13 @@
 - name: update the system (yum)
   yum: name=* state=latest
   ignore_errors: yes
-  when: ansible_distribution == 'CentOS' and sysadmin_sysupdate
+  when: sysadmin_sysupdate and ( ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' )
 
 
 # Centos: For RHEL7 only
 - name: install epel (yum)
   yum: name=epel-release state=present
-  when: ansible_distribution == 'CentOS'
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
 
 # Configure a nice shell prompt
@@ -43,7 +43,7 @@
 # Install sysadmin packages
 - name: install sysadmin tools
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=installed"
-  with_items: sysadmin_pkgs
+  with_items: "{{ sysadmin_pkgs }}"
 
 
 
